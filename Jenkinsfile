@@ -15,7 +15,7 @@ pipeline{
         }
         stage("Install Nginx with Ansible") {
             steps {
-                dir('ansible/ansible') {
+                dir('ansible') {
                     sh 'ls -la'
                     sh 'ls -la playbook'
                     sh 'ansible-playbook -i inventory/hosts playbook/nginx.yml'
