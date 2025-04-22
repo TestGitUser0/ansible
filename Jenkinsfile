@@ -1,6 +1,6 @@
 pipeline{
     agent{
-        label "linux"
+        label "master"
     }
     stages {
         stage("Clean Up"){
@@ -8,18 +8,20 @@ pipeline{
                 deleteDir()
             }
         }
-        stage("Clone Repo"){
+        stages {
+        stage("Clone Repo") {
             steps {
                 sh 'git clone https://github.com/TestGitUser0/ansible.git'
-                sh 'cd ansible'
             }
         }
-        stage("Build"){
+
+        stage("Install Nginx with Ansible") {
             steps {
                 dir('ansible') {
-                    sh 'ansible-playbook -i inventory/hosts playbooks/nginx.yml'
+                    sh 'ansible-playbook -i inventory/hosts playbook/nginx.yml'
                 }
             }
         }
+    }
     }
 }
